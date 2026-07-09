@@ -2,7 +2,7 @@ import { CalendarDays, LayoutDashboard, ReceiptText } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const links = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/trips', label: 'Trips', icon: CalendarDays },
   { to: '/trips/new', label: 'Create Trip', icon: ReceiptText }
 ];

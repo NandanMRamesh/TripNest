@@ -11,6 +11,7 @@ import com.tripnest.mapper.TripMapper;
 import com.tripnest.repository.ExpenseRepository;
 import com.tripnest.repository.ItineraryRepository;
 import com.tripnest.repository.TripRepository;
+import com.tripnest.security.SecurityUtils;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,15 @@ public class TripService {
 
     @Transactional(readOnly = true)
     public List<TripDto> list(Long userId) {
+        if (userId == null) {
+            String email = SecurityUtils.getCurrentUserEmail();
+            if (email != null) {
+                User user = userService.findEntityByEmail(email);
+                if (user != null) {
+                    userId = user.getId();
+                }
+            }
+        }
         List<Trip> trips = userId == null
                 ? tripRepository.findAll()
                 : tripRepository.findByUserIdOrderByStartDateAsc(userId);
